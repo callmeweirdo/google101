@@ -1,8 +1,20 @@
+import React, { useState } from "react";
+
 import "./index.css";
-import { Navbar } from "./components/imports";
+import { Navbar, Routes, Footer } from "./components/imports";
 
 function App() {
-  return <div className="bg-black text-white">Fuck the world</div>;
+  const [darkTheme, setDarkTheme] = useState(false);
+
+  return (
+    <div className={darkTheme ? "dark" : ""}>
+      <div className="bg-gray-100 dark:bg-gray-900 dark:text-gray-200 min-h-screen ">
+        <Navbar darkTheme={darkTheme} setDarkTheme={setDarkTheme} />
+        <Routes />
+        <Footer />
+      </div>
+    </div>
+  );
 }
 
 export default App;
