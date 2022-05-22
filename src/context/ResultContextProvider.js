@@ -7,7 +7,7 @@ const ResultContext = createContext();
 export const ResultContextProvider = ({ children }) => {
   const [results, setResults] = useState([]);
   const [isLoading, setIsloading] = useState(false);
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState("hydra");
 
   const getResult = async (type) => {
     setIsloading(true);
@@ -23,9 +23,17 @@ export const ResultContextProvider = ({ children }) => {
     });
 
     const data = await response.json();
-    setResults(data);
+
+    if (type.includes("/image")) {
+      setResults(data.image_results);
+    } else if (type.includes("/news")) {
+      setResults(data.entries);
+    } else {
+      setResults(data.results);
+    }
+
     setIsloading(false);
-    console.log(data);
+    // console.log(data);
   };
 
   return (
