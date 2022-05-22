@@ -7,7 +7,7 @@ const ResultContext = createContext();
 export const ResultContextProvider = ({ children }) => {
   const [results, setResults] = useState([]);
   const [isLoading, setIsloading] = useState(false);
-  const [searchTerm, setSearchTerm] = useState("hydra");
+  const [searchTerm, setSearchTerm] = useState("");
 
   const getResult = async (type) => {
     setIsloading(true);
