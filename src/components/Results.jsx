@@ -1,17 +1,19 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
 import { useResultContext } from "../context/ResultContextProvider";
 import Loading from "./Loading";
 import ReactPlayer from "react-player";
 
 const Results = () => {
-  const { getResult, results, isLoading, searchTerm, setSearchTerm } =
-    useResultContext();
+  const { getResult, results, isLoading, searchTerm } = useResultContext();
 
   const location = useLocation();
 
+  const resultRef = useRef();
+
+  resultRef.current = getResult(`${location.pathname}/q=${searchTerm}`);
   useEffect(() => {
-    getResult(`${location.pathname}/q=${searchTerm}`);
+    resultRef.current();
   }, [searchTerm, location.pathname]);
 
   if (isLoading) {
@@ -25,7 +27,7 @@ const Results = () => {
           {results?.map(({ link, title }, index) => {
             return (
               <div key={index} className="md:w-2/5 w-full mt-3 ">
-                <a href={link} target="_blank">
+                <a href={link} rel="noreferrer" target="_blank">
                   <p className="text-sm">
                     {link.lenght > 30 ? link.substring(0, 30) : link}
                   </p>

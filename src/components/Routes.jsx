@@ -1,7 +1,7 @@
 import React from "react";
 import { Routes as Pages, Route, Navigate } from "react-router-dom";
 
-import { Results, Search } from "./imports";
+import { Results } from "./imports";
 
 const Routes = () => {
   return (

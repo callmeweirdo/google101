@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Links from "./Links";
 import { useDebounce } from "use-debounce";
 import { useResultContext } from "../context/ResultContextProvider";
@@ -8,8 +8,12 @@ const Search = () => {
   const [debouncedValue] = useDebounce(text, 300);
   const { setSearchTerm } = useResultContext();
 
+  const searchRef = useRef();
+
+  searchRef.current = setSearchTerm(debouncedValue);
+
   useEffect(() => {
-    if (debouncedValue) setSearchTerm(debouncedValue);
+    if (debouncedValue) searchRef.current();
   }, [debouncedValue]);
 
   return (
